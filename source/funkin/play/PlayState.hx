@@ -3335,6 +3335,7 @@ class PlayState extends MusicBeatSubState
       {
         needsReset = true;
         missCounter++;
+        Highscore.tallies.missed += 1;
       }
     }
     else
@@ -3699,8 +3700,6 @@ class PlayState extends MusicBeatSubState
         }
       }
     }
-
-    missCounter = 0;
   }
 
   public override function close():Void
