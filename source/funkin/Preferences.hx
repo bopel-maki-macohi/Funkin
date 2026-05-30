@@ -569,7 +569,7 @@ class Preferences
 
   static function get_hardcore():Bool
   {
-    return Save?.instance?.options?.hardcore ?? true;
+    return Save?.instance?.options?.hardcore ?? false;
   }
 
   static function set_hardcore(value:Bool):Bool
