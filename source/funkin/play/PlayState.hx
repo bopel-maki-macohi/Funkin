@@ -2169,7 +2169,7 @@ class PlayState extends MusicBeatSubState
       iconP2.y = healthBar.y - (iconP2.height / 2);
       dad.initHealthIcon(true); // Apply the character ID here
       iconP2.zIndex = 850;
-      add(iconP2);
+      if (!Preferences.hardcore) add(iconP2);
       iconP2.cameras = [camHUD];
 
       #if FEATURE_DISCORD_RPC
@@ -2192,7 +2192,7 @@ class PlayState extends MusicBeatSubState
       iconP1.y = healthBar.y - (iconP1.height / 2);
       boyfriend.initHealthIcon(false); // Apply the character ID here
       iconP1.zIndex = 850;
-      add(iconP1);
+      if (!Preferences.hardcore) add(iconP1);
       iconP1.cameras = [camHUD];
     }
 
