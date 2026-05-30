@@ -1407,7 +1407,7 @@ class PlayState extends MusicBeatSubState
               boyfriendPos = currentStage.getBoyfriend().getScreenPosition();
             }
 
-            openPauseSubState(isChartingMode ? Charting : Standard, camPause, lostFocus);
+            openPauseSubState(isChartingMode ? Charting : ((Preferences.hardcore) ? Hardcore : Standard), camPause, lostFocus);
           }
 
           #if FEATURE_DISCORD_RPC
