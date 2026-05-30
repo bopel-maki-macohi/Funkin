@@ -962,13 +962,11 @@ class PauseSubState extends MusicBeatSubState
     switch (this.currentMode)
     {
       case Standard | Hardcore | Difficulty:
+        metadataDeaths.text = '${PlayState.instance?.deathCounter} Blue Balls';
+
         if (Preferences.hardcore)
         {
-          metadataDeaths.text = '${PlayState.instance?.missCounter} Misses';
-        }
-        else
-        {
-          metadataDeaths.text = '${PlayState.instance?.deathCounter} Blue Balls';
+          metadataDeaths.text += ' : ${PlayState.instance?.missCounter} Misses';
         }
       case Charting:
         metadataDeaths.text = 'Chart Editor Preview';
