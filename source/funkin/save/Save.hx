@@ -107,6 +107,7 @@ class Save implements ConsoleClass
         debugDisplay: 'Off',
         debugDisplayBGOpacity: 50,
         subtitles: true,
+        hardcore: true,
         hapticsMode: 'All',
         hapticsIntensityMultiplier: 1,
         autoPause: true,
@@ -1171,6 +1172,12 @@ typedef SaveDataOptions =
    * @default `true`
    */
   var subtitles:Bool;
+
+  /**
+   * If enabled, you cannot miss or the song will reset.
+   * @default `false`
+   */
+  var hardcore:Bool;
 
   /**
    * If enabled, haptic feedback will be enabled.

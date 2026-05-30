@@ -232,6 +232,12 @@ class PlayState extends MusicBeatSubState
   public var deathCounter:Int = 0;
 
   /**
+   * The current 'Misses' to display in the pause menu on hardcore mode.
+   * Resets when you beat a song or go back to the main menu.
+   */
+  public var missCounter:Int = 0;
+
+  /**
    * The player's current health.
    */
   public var health:Float = Constants.HEALTH_STARTING;
@@ -2001,7 +2007,6 @@ class PlayState extends MusicBeatSubState
     healthBarBG.screenCenter(X);
     healthBarBG.scrollFactor.set(0, 0);
     healthBarBG.zIndex = 800;
-    add(healthBarBG);
 
     healthBar.x = healthBarBG.x + 4;
     healthBar.y = healthBarBG.y + 4;
@@ -2010,7 +2015,6 @@ class PlayState extends MusicBeatSubState
     healthBar.scrollFactor.set();
     healthBar.createFilledBar(Constants.COLOR_HEALTH_BAR_RED, Constants.COLOR_HEALTH_BAR_GREEN);
     healthBar.zIndex = 801;
-    add(healthBar);
 
     // The score text below the health bar.
     scoreText.x = healthBarBG.x + healthBarBG.width - 190;
@@ -2021,7 +2025,13 @@ class PlayState extends MusicBeatSubState
     scoreText.letterSpacing = -1;
     scoreText.scrollFactor.set();
     scoreText.zIndex = 802;
-    add(scoreText);
+
+    if (!Preferences.hardcore)
+    {
+      add(healthBarBG);
+      add(healthBar);
+      add(scoreText);
+    }
 
     // Move the health bar to the HUD camera.
     healthBar.cameras = [camHUD];
@@ -3155,6 +3165,12 @@ class PlayState extends MusicBeatSubState
       if (vocals != null) vocals.playerVolume = 0;
       FunkinSound.playOnce(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.5, 0.6));
     }
+
+    if (Preferences.hardcore)
+    {
+      needsReset = true;
+      missCounter++;
+    }
   }
 
   /**
@@ -3433,6 +3449,7 @@ class PlayState extends MusicBeatSubState
     if (event.eventCanceled) return;
 
     deathCounter = 0;
+    missCounter = 0;
 
     // TODO: This line of code makes me sad, but you can't really fix it without a breaking migration.
     // `easy`, `erect`, `normal-pico`, etc.

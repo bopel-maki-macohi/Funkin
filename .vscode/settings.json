@@ -1,7 +1,7 @@
 {
   "[haxe]": {
-    "editor.formatOnSave": true,
-    "editor.formatOnPaste": true,
+    // "editor.formatOnSave": true,
+    // "editor.formatOnPaste": true,
     "editor.codeActionsOnSave": { "source.organizeImports": "never" },
     "editor.defaultFormatter": "nadako.vshaxe",
     "editor.tabSize": 2

@@ -203,6 +203,11 @@ class PauseSubState extends MusicBeatSubState
   var metadataDeaths:FlxText;
 
   /**
+   * A text object that displays the current miss count on hardcore.
+   */
+  var metadataMisses:FlxText;
+
+  /**
    * A text object which displays the current song's artist.
    * Fades to the charter after a period before fading back.
    */
@@ -469,6 +474,15 @@ class PauseSubState extends MusicBeatSubState
     metadataPractice.scrollFactor.set(0, 0);
     metadata.add(metadataPractice);
 
+    metadataMisses = new FlxText(20, metadataPractice.y + 32, camera.width - Math.max(40, funkin.ui.FullScreenScaleMode.gameNotchSize.x),
+      '${PlayState.instance?.missCounter} Misses');
+    metadataMisses.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, FlxTextAlign.RIGHT);
+    metadataMisses.scrollFactor.set(0, 0);
+    if (Preferences.hardcore)
+    {
+      metadata.add(metadataMisses);
+    }
+
     // Right side
     offsetText = new FlxText(20, metadataSong.y - 12, (camera.width + 10) - Math.max(40, funkin.ui.FullScreenScaleMode.gameNotchSize.x),
       'Global Offset: ${Preferences.globalOffset ?? 0}ms');
@@ -493,6 +507,7 @@ class PauseSubState extends MusicBeatSubState
     metadataSong.alpha = 0;
     metadataDifficulty.alpha = 0;
     metadataDeaths.alpha = 0;
+    metadataMisses.alpha = 0;
     offsetText.alpha = 0;
     offsetTextInfo.alpha = 0;
 

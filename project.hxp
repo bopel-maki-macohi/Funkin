@@ -1014,6 +1014,9 @@ class Project extends HXProject
    */
   function configureCompileDefines()
   {
+    // Add this define so that if a mod wanted to go "#if maki.funkin.hardcore" they could
+    setHaxedef("maki.funkin.hardcore");
+
     // Enable OpenFL's error handler. Required for the crash logger.
     setHaxedef("openfl-enable-handle-error");
 
@@ -1151,6 +1154,7 @@ class Project extends HXProject
 
     // we use a dedicated 'tracy' folder, since it generally needs a recompile when in use
     if (FEATURE_DEBUG_TRACY.isEnabled(this)) buildDir += "-tracy";
+    buildDir += "-hardcore";
 
     info('Output directory: $buildDir');
 

@@ -561,6 +561,25 @@ class Preferences
     return value;
   }
 
+  /**
+   * If enabled, the song will reset when you miss
+   * @default `false`
+   */
+  public static var hardcore(get, set):Bool;
+
+  static function get_hardcore():Bool
+  {
+    return Save?.instance?.options?.hardcore ?? true;
+  }
+
+  static function set_hardcore(value:Bool):Bool
+  {
+    var save:Save = Save.instance;
+    save.options.hardcore = value;
+    Save.system.flush();
+    return value;
+  }
+
   #if mobile
   /**
    * If enabled, device will be able to sleep on its own.
