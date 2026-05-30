@@ -3457,7 +3457,6 @@ class PlayState extends MusicBeatSubState
     if (event.eventCanceled) return;
 
     deathCounter = 0;
-    missCounter = 0;
 
     // TODO: This line of code makes me sad, but you can't really fix it without a breaking migration.
     // `easy`, `erect`, `normal-pico`, etc.
@@ -3700,6 +3699,8 @@ class PlayState extends MusicBeatSubState
         }
       }
     }
+
+    missCounter = 0;
   }
 
   public override function close():Void

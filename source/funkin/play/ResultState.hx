@@ -480,7 +480,7 @@ class ResultState extends MusicBeatSubState
       0xFFE68C8A);
     ratingGrp.add(tallyShit);
 
-    var tallyMissed:TallyCounter = new TallyCounter(260 + FullScreenScaleMode.gameNotchSize.x, (hStuf * 9) + extraYOffset, ((Preferences.hardcore) ? (PlayState.instance?.missCounter ?? 0) : params.scoreData.tallies.missed),
+    var tallyMissed:TallyCounter = new TallyCounter(260 + FullScreenScaleMode.gameNotchSize.x, (hStuf * 9) + extraYOffset, params.scoreData.tallies.missed,
       0xFFC68AE6);
     ratingGrp.add(tallyMissed);
 
