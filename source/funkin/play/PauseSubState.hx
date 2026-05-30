@@ -478,10 +478,12 @@ class PauseSubState extends MusicBeatSubState
       '${PlayState.instance?.missCounter} Misses');
     metadataMisses.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, FlxTextAlign.RIGHT);
     metadataMisses.scrollFactor.set(0, 0);
-    if (Preferences.hardcore)
+    metadataPractice.visible = Preferences.hardcore;
+    if (!metadataPractice.visible)
     {
-      metadata.add(metadataMisses);
+      metadataMisses.y = metadataPractice.y;
     }
+    metadata.add(metadataMisses);
 
     // Right side
     offsetText = new FlxText(20, metadataSong.y - 12, (camera.width + 10) - Math.max(40, funkin.ui.FullScreenScaleMode.gameNotchSize.x),
