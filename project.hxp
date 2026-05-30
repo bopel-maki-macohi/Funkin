@@ -1154,7 +1154,6 @@ class Project extends HXProject
 
     // we use a dedicated 'tracy' folder, since it generally needs a recompile when in use
     if (FEATURE_DEBUG_TRACY.isEnabled(this)) buildDir += "-tracy";
-    buildDir += "-hardcore";
 
     info('Output directory: $buildDir');
 
