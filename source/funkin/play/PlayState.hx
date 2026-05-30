@@ -221,6 +221,12 @@ class PlayState extends MusicBeatSubState
   public var needsReset:Bool = false;
 
   /**
+   * Gets set to true when resetting.
+   * Gets disabled once the countdown starts again.
+   */
+  public var restarting:Bool = true;
+
+  /**
    * A timer that gets active once resetting happens. Used to vwoosh in notes.
    */
   public var vwooshTimer:FlxTimer = new FlxTimer();
@@ -1050,6 +1056,8 @@ class PlayState extends MusicBeatSubState
     if (needsReset)
     {
       if (!assertChartExists()) return;
+
+      restarting = true;
 
       prevScrollTargets = [];
 
@@ -2744,7 +2752,7 @@ class PlayState extends MusicBeatSubState
      */
   function onKeyPress(event:PreciseInputEvent):Void
   {
-    if (isGamePaused) return;
+    if (isGamePaused || restarting) return;
 
     // Do the minimal possible work here.
     inputPressQueue.push(event);

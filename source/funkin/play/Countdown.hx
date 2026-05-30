@@ -97,6 +97,7 @@ class Countdown
 
       if (countdownStep == AFTER)
       {
+        PlayState.instance.restarting = false;
         stopCountdown();
       }
     }, 5); // Before, 3, 2, 1, GO!, After
