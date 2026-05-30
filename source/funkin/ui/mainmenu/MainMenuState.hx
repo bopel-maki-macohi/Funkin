@@ -329,6 +329,8 @@ class MainMenuState extends MusicBeatState
       leftWatermarkText.text += ' | Newgrounds: Logged in as ${NewgroundsClient.instance.user?.name}';
     }
     #end
+
+    leftWatermarkText.text += ' (Hardcore Mod)';
   }
 
   function playMenuMusic():Void
