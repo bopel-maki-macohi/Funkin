@@ -468,18 +468,18 @@ class PauseSubState extends MusicBeatSubState
     metadataDeaths.scrollFactor.set(0, 0);
     metadata.add(metadataDeaths);
 
-    metadataPractice = new FlxText(20, metadataDeaths.y + 32, camera.width - Math.max(40, funkin.ui.FullScreenScaleMode.gameNotchSize.x), 'PRACTICE MODE');
-    metadataPractice.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, FlxTextAlign.RIGHT);
-    metadataPractice.visible = PlayState.instance?.isPracticeMode ?? false;
-    metadataPractice.scrollFactor.set(0, 0);
-    metadata.add(metadataPractice);
-
-    metadataMisses = new FlxText(20, metadataPractice.y + 32, camera.width - Math.max(40, funkin.ui.FullScreenScaleMode.gameNotchSize.x),
+    metadataMisses = new FlxText(20, metadataDeaths.y + 32, camera.width - Math.max(40, funkin.ui.FullScreenScaleMode.gameNotchSize.x),
       '${PlayState.instance?.missCounter} Misses');
     metadataMisses.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, FlxTextAlign.RIGHT);
     metadataMisses.scrollFactor.set(0, 0);
     metadataPractice.visible = Preferences.hardcore;
     metadata.add(metadataMisses);
+
+    metadataPractice = new FlxText(20, ((!Preferences.hardcore) ? metadataDeaths.y : metadataMisses.y) + 32, camera.width - Math.max(40, funkin.ui.FullScreenScaleMode.gameNotchSize.x), 'PRACTICE MODE');
+    metadataPractice.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, FlxTextAlign.RIGHT);
+    metadataPractice.visible = PlayState.instance?.isPracticeMode ?? false;
+    metadataPractice.scrollFactor.set(0, 0);
+    metadata.add(metadataPractice);
 
     // Right side
     offsetText = new FlxText(20, metadataSong.y - 12, (camera.width + 10) - Math.max(40, funkin.ui.FullScreenScaleMode.gameNotchSize.x),
@@ -948,9 +948,6 @@ class PauseSubState extends MusicBeatSubState
   function updateMetadataText():Void
   {
     metadataPractice.visible = PlayState.instance?.isPracticeMode ?? false;
-
-    metadataMisses.y = metadataPractice.y;
-    if (PlayState.instance?.isPracticeMode) metadataMisses.y += 32;
 
     #if mobile
     if (metadata.members[0].y != camera.height - 185 && metadataPractice.visible)
