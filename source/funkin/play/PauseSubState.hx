@@ -69,6 +69,17 @@ class PauseSubState extends MusicBeatSubState
   }, {text: 'Exit to Menu', callback: quitToMenu},];
 
   /**
+   * Pause menu entries for when the game is paused during a song with hardcore enabled.
+   */
+  static final PAUSE_MENU_ENTRIES_HARDCORE:Array<PauseMenuEntry> = [{text: 'Resume', callback: resume}, {
+    text: 'Restart Song',
+    callback: restartPlayState
+  }, {
+    text: 'Change Difficulty',
+    callback: switchMode.bind(_, Difficulty)
+  }, {text: 'Exit to Menu', callback: quitToMenu},];
+
+  /**
    * Pause menu entries for when the game is paused in the Chart Editor preview.
    */
   static final PAUSE_MENU_ENTRIES_CHARTING:Array<PauseMenuEntry> = [{text: 'Resume', callback: resume}, {
@@ -81,7 +92,7 @@ class PauseSubState extends MusicBeatSubState
    */
   static final PAUSE_MENU_ENTRIES_DIFFICULTY:Array<PauseMenuEntry> = [{
     text: 'Back',
-    callback: switchMode.bind(_, Standard)
+    callback: switchMode.bind(_, (Preferences.hardcore) ? Hardcore : Standard)
   } // Other entries are added dynamically.
   ];
 
@@ -201,11 +212,6 @@ class PauseSubState extends MusicBeatSubState
    * A text object that displays the current death count.
    */
   var metadataDeaths:FlxText;
-
-  /**
-   * A text object that displays the current miss count on hardcore.
-   */
-  var metadataMisses:FlxText;
 
   /**
    * A text object which displays the current song's artist.
@@ -468,14 +474,7 @@ class PauseSubState extends MusicBeatSubState
     metadataDeaths.scrollFactor.set(0, 0);
     metadata.add(metadataDeaths);
 
-    metadataMisses = new FlxText(20, metadataDeaths.y + 32, camera.width - Math.max(40, funkin.ui.FullScreenScaleMode.gameNotchSize.x),
-      '${PlayState.instance?.missCounter} Misses');
-    metadataMisses.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, FlxTextAlign.RIGHT);
-    metadataMisses.scrollFactor.set(0, 0);
-    metadataPractice.visible = Preferences.hardcore;
-    metadata.add(metadataMisses);
-
-    metadataPractice = new FlxText(20, ((!Preferences.hardcore) ? metadataDeaths.y : metadataMisses.y) + 32, camera.width - Math.max(40, funkin.ui.FullScreenScaleMode.gameNotchSize.x), 'PRACTICE MODE');
+    metadataPractice = new FlxText(20, metadataDeaths.y + 32, camera.width - Math.max(40, funkin.ui.FullScreenScaleMode.gameNotchSize.x), 'PRACTICE MODE');
     metadataPractice.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, FlxTextAlign.RIGHT);
     metadataPractice.visible = PlayState.instance?.isPracticeMode ?? false;
     metadataPractice.scrollFactor.set(0, 0);
@@ -505,7 +504,6 @@ class PauseSubState extends MusicBeatSubState
     metadataSong.alpha = 0;
     metadataDifficulty.alpha = 0;
     metadataDeaths.alpha = 0;
-    metadataMisses.alpha = 0;
     offsetText.alpha = 0;
     offsetTextInfo.alpha = 0;
 
@@ -961,8 +959,15 @@ class PauseSubState extends MusicBeatSubState
 
     switch (this.currentMode)
     {
-      case Standard | Difficulty:
-        metadataDeaths.text = '${PlayState.instance?.deathCounter} Blue Balls';
+      case Standard | Hardcore | Difficulty:
+        if (Preferences.hardcore)
+        {
+          metadataDeaths.text = '${PlayState.instance?.missCounter} Misses';
+        }
+        else
+        {
+          metadataDeaths.text = '${PlayState.instance?.deathCounter} Blue Balls';
+        }
       case Charting:
         metadataDeaths.text = 'Chart Editor Preview';
       case Conversation:
@@ -1228,6 +1233,11 @@ enum PauseMode
    * The menu displayed when the player pauses the game during a song.
    */
   Standard;
+
+  /**
+   * The menu displayed when the player pauses the game during a song with hardcore enabled.
+   */
+  Hardcore;
 
   /**
    * The menu displayed when the player pauses the game during a song while in charting mode.
