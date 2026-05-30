@@ -330,7 +330,7 @@ class MainMenuState extends MusicBeatState
     }
     #end
 
-    leftWatermarkText.text += ' (Hardcore Mod)';
+    leftWatermarkText.text += ' (Hardcore Mod ${Constants.HARDCORE_VERSION})';
   }
 
   function playMenuMusic():Void

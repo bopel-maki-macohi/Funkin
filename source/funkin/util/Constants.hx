@@ -23,6 +23,11 @@ class Constants
   public static final TITLE:String = "Friday Night Funkin' (Hardcore Mod)";
 
   /**
+   * The current version number of the mod.
+   */
+  public static var HARDCORE_VERSION(default, never):Float = 1.1;
+
+  /**
    * The current version number of the game.
    * Modify this in the `project.xml` file.
    */
