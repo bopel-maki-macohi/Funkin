@@ -154,10 +154,6 @@ class PreferencesMenu extends Page<OptionsState.OptionsMenuPageName>
     {
       Preferences.subtitles = value;
     }, Preferences.subtitles);
-    createPrefItemCheckbox('Hardcore', 'When enabled, you cannot miss a note without the song resetting', function(value:Bool):Void
-    {
-      Preferences.hardcore = value;
-    }, Preferences.hardcore);
     #if FEATURE_DEBUG_DISPLAY
     // note: technically we can do DebugDisplayMode.Advanced => DebugDisplayMode.Advanced, etc. here, but that's a bit headache inducing.
     createPrefItemEnum('Debug Display', 'When enabled, FPS and other debug stats are displayed.',
@@ -220,6 +216,10 @@ class PreferencesMenu extends Page<OptionsState.OptionsMenuPageName>
       Preferences.previewOnSave = value;
     }, Preferences.previewOnSave);
     #end
+    createPrefItemCheckbox('Hardcore', 'When enabled, you cannot miss a note without the song resetting', function(value:Bool):Void
+    {
+      Preferences.hardcore = value;
+    }, Preferences.hardcore);
   }
 
   override function update(elapsed:Float):Void
