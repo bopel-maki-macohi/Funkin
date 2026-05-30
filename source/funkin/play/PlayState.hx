@@ -3165,12 +3165,6 @@ class PlayState extends MusicBeatSubState
       if (vocals != null) vocals.playerVolume = 0;
       FunkinSound.playOnce(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.5, 0.6));
     }
-
-    if (Preferences.hardcore)
-    {
-      needsReset = true;
-      missCounter++;
-    }
   }
 
   /**
@@ -3328,6 +3322,12 @@ class PlayState extends MusicBeatSubState
       // Break the combo, but don't increment tallies.misses.
       if (Highscore.tallies.combo >= 10) comboPopUps.displayCombo(0);
       Highscore.tallies.combo = 0;
+
+      if (Preferences.hardcore)
+      {
+        needsReset = true;
+        missCounter++;
+      }
     }
     else
     {
