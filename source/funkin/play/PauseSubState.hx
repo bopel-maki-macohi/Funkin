@@ -479,10 +479,6 @@ class PauseSubState extends MusicBeatSubState
     metadataMisses.setFormat(Paths.font('vcr.ttf'), 32, FlxColor.WHITE, FlxTextAlign.RIGHT);
     metadataMisses.scrollFactor.set(0, 0);
     metadataPractice.visible = Preferences.hardcore;
-    if (!metadataPractice.visible)
-    {
-      metadataMisses.y = metadataPractice.y;
-    }
     metadata.add(metadataMisses);
 
     // Right side
@@ -952,6 +948,9 @@ class PauseSubState extends MusicBeatSubState
   function updateMetadataText():Void
   {
     metadataPractice.visible = PlayState.instance?.isPracticeMode ?? false;
+
+    metadataMisses.y = metadataPractice.y;
+    if (PlayState.instance?.isPracticeMode) metadataMisses.y += 32;
 
     #if mobile
     if (metadata.members[0].y != camera.height - 185 && metadataPractice.visible)
