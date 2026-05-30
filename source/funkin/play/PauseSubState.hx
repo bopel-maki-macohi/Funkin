@@ -843,6 +843,8 @@ class PauseSubState extends MusicBeatSubState
     {
       case PauseMode.Standard:
         currentMenuEntries = PAUSE_MENU_ENTRIES_STANDARD.clone();
+      case PauseMode.Hardcore:
+        currentMenuEntries = PAUSE_MENU_ENTRIES_HARDCORE.clone();
       case PauseMode.Charting:
         currentMenuEntries = PAUSE_MENU_ENTRIES_CHARTING.clone();
       case PauseMode.Difficulty:
